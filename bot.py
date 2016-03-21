@@ -20,13 +20,14 @@ def main():
     new_posts = post.get_posts(sent_only=False)
 
     if new_posts:
-        logger.info('%d new post(s) to be sent!' % len(new_posts))
+        for p in new_posts:
+            bot.sendMessage(chat_id=chat_id, text=p.text(), parse_mode='HTML')
+            post.mark_as_sent(p.uid)
+
+        logger.info('%d new post(s) have been sent!' % len(new_posts))
     else:
         logger.info('No new posts at this time!')
 
-    for p in new_posts:
-        bot.sendMessage(chat_id=chat_id, text=p.text(), parse_mode='HTML')
-        post.mark_as_sent(p.uid)
 
 if __name__ == '__main__':
     main()
