@@ -26,7 +26,7 @@ def main():
                 bot.sendMessage(chat_id=chat_id, text=p.text(), parse_mode='HTML')
                 post.mark_as_sent(p.uid)
             except BadRequest:
-                print('Bad post formatting:', p.uid)
+                logging.info('Bad post formatting: %d' % p.uid)
 
         logger.info('%d new post(s) have been sent!' % len(new_posts))
     else:
