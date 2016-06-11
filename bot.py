@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from os import environ
 from telegram import Bot
+from telegram.error import BadRequest
 from models import post
 
 import logging
@@ -21,8 +22,11 @@ def main():
 
     if new_posts:
         for p in new_posts:
-            bot.sendMessage(chat_id=chat_id, text=p.text(), parse_mode='HTML')
-            post.mark_as_sent(p.uid)
+            try:
+                bot.sendMessage(chat_id=chat_id, text=p.text(), parse_mode='HTML')
+                post.mark_as_sent(p.uid)
+            except BadRequest:
+                print('Bad post formatting:', p.uid)
 
         logger.info('%d new post(s) have been sent!' % len(new_posts))
     else:
