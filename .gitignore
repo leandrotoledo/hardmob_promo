@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+.env
 env/
 build/
 develop-eggs/
@@ -60,3 +61,6 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# SQLite
+*.sqlite
