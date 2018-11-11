@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from os import environ
 from bs4 import BeautifulSoup
-import requests
+import cfscrape
 
 
 class Posts(object):
@@ -9,7 +9,8 @@ class Posts(object):
     @staticmethod
     def fetch():
         url = environ.get('URL')
-        html = requests.get(url).content
+        scraper = cfscrape.create_scraper()
+        html = scraper.get(url).content
         soup = BeautifulSoup(html, 'html.parser')
 
         posts = list()
